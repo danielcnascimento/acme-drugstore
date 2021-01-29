@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Table,
@@ -10,8 +9,11 @@ import {
   TablePagination,
   TableRow,
 } from "@material-ui/core";
-import api from "../../services/api";
+import api from "../services/api";
+import loadingIcn from "../assets/loading-icon.svg";
+import { useStyle } from "./style";
 
+//seta as colunas que escolhi.
 const columns = [
   { id: "name", label: "Nome", minWidth: 170 },
   { id: "dosage", label: "Dosagem", minWidth: 100 },
@@ -41,26 +43,14 @@ const columns = [
   },
 ];
 
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    margin: "auto",
-  },
-  container: {
-    maxHeight: 600,
-  },
-});
-
-export default function DrugsData({ fetchResult }) {
-  const classes = useStyles();
+export default function DrugsData({ fetchResult, getResult }) {
+  const classes = useStyle();
   const [page, setPage] = React.useState(0);
   const [totalDrugs, setTotalDrugs] = React.useState(0);
-  const [totalPages, setTotalPages] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(20);
   const [medications, setMedications] = React.useState([]);
 
-  // rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-
+  //se a token for válida, busca o resultado de acordo com os parametros.
   React.useEffect(() => {
     api
       .get(`drugs?name=${fetchResult}&limit=${rowsPerPage}&page=${page + 1}`, {
@@ -71,23 +61,31 @@ export default function DrugsData({ fetchResult }) {
       .then((res) => {
         setMedications(res.data.data);
         setTotalDrugs(res.data.total);
-        setTotalPages(res.data.last_page);
       })
       .catch((err) => console.log(err.toJSON()));
   }, [rowsPerPage, page, fetchResult]);
 
+  //PROPS: encaminha o resultado para medication (res.data.total).
+  React.useEffect(() => {
+    getResult(totalDrugs);
+  }, [totalDrugs]);
+
+  //troca o "limit" - número de linhas por página
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+  };
+
+  //troca a página
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  console.log(totalDrugs);
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    //setPage(1);
-  };
   if (!medications.length) {
-    return <view />;
+    return (
+      <div className={classes.icnArea}>
+        <img src={loadingIcn} className={classes.loadingIcn} />
+      </div>
+    );
   } else {
     return (
       <Paper className={classes.root}>
@@ -98,8 +96,9 @@ export default function DrugsData({ fetchResult }) {
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}
-                    align="right"
-                    style={{ minWidth: 170 }}
+                    align="center"
+                    style={{ minWidth: 100 }}
+                    className={classes.cellHeader}
                   >
                     {column.label}
                   </TableCell>
@@ -107,27 +106,30 @@ export default function DrugsData({ fetchResult }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {medications //rows
-
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.gpi14}
-                    >
-                      <TableCell align="right">{row.name}</TableCell>
-                      <TableCell align="right">{row.dosage}</TableCell>
-                      <TableCell align="right">
-                        {row.type_description}
-                      </TableCell>
-                      <TableCell align="right">{row.coverage}</TableCell>
-                      <TableCell align="right">{row.strength_unit}</TableCell>
-                      <TableCell align="right">{row.strength}</TableCell>
-                    </TableRow>
-                  );
-                })}
+              {medications.map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.gpi14}>
+                    <TableCell className={classes.tableCell} align="right">
+                      {row.name}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} align="center">
+                      {row.dosage}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} align="center">
+                      {row.type_description}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} align="center">
+                      {row.coverage}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} align="center">
+                      {row.strength_unit}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} align="center">
+                      {row.strength}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

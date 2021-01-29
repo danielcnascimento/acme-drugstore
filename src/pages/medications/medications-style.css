@@ -1,3 +1,4 @@
+/* screen total da pagina de medications */
 #page-drugs {
   width: 100vm;
   height: 100vh;
@@ -6,12 +7,14 @@
 }
 
 .menu-icon {
-  position: absolute;
+  position: fixed;
   width: 3rem;
   left: 0;
   bottom: 0.5rem;
   z-index: 1000;
 }
+
+/* SIDE BAR */
 
 aside {
   width: 25rem;
@@ -32,20 +35,9 @@ aside.active {
   left: 0;
 }
 
-@media (min-width: 1350px) {
-  aside {
-    width: 25rem;
-    height: 100vh;
-    background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
-    padding: 10px 0 0 25px;
-    position: initial;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-  }
-}
+/* HEADER */
 
-.header {
+aside .header {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -55,33 +47,28 @@ aside.active {
   height: 350px;
 }
 
-footer {
+aside .header img {
+  width: 70px;
+  height: auto;
+  align-self: center;
+}
+
+/* FOOTER */
+
+aside footer {
   display: flex;
   flex-direction: row;
   line-height: 24px;
   justify-content: space-between;
 }
 
-footer .greetings {
+aside footer .greetings {
   display: flex;
   flex-direction: column;
   color: #fff;
 }
 
-.header img {
-  width: 70px;
-  height: auto;
-  align-self: center;
-}
-
-@media (max-width: 450px) {
-  .header img {
-    width: 50px;
-    height: auto;
-  }
-}
-
-footer img {
+aside footer img {
   width: 100px;
   height: auto;
   padding-bottom: 10px;
@@ -91,4 +78,91 @@ footer img {
   display: flex;
   position: relative;
   margin: auto;
+}
+
+.whatsApp-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 15px;
+  background-color: #25d366;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 1rem;
+}
+
+.whatsApp-icon:hover {
+  width: 175px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+}
+.whatsApp-icon:hover::after {
+  content: "Solicitar ajuda";
+  color: #fff;
+  font-weight: 600;
+}
+
+.whatsApp {
+  color: #fff;
+}
+
+/* SCREEN QUERIES */
+
+@media (min-width: 1350px) {
+  .close {
+    display: none;
+  }
+  aside {
+    width: 25rem;
+    background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
+    padding: 10px 0 0 25px;
+    position: initial;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 450px) {
+  aside {
+    width: auto;
+    padding: 10px;
+  }
+
+  aside .header img {
+    width: 50px;
+    height: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  aside {
+    width: auto;
+    padding: 10px;
+  }
+
+  aside .header img {
+    width: 50px;
+    height: auto;
+  }
+}
+
+@media (max-width: 300px) {
+  aside {
+    width: 270px;
+  }
+
+  aside .header {
+    width: 270px;
+  }
+
+  aside .header img {
+    width: 50px;
+    height: auto;
+  }
 }

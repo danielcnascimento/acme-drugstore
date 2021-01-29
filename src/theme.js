@@ -11,6 +11,7 @@ export const theme = createMuiTheme({
     text: {
       primary: "#3F76DC",
     },
+    //action: "#fff",
   },
   typography: {
     fontFamily: "Poppins",

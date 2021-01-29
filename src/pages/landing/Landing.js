@@ -63,19 +63,6 @@ const Landing = () => {
                   ENTRAR
                 </Typography>
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
-                <Typography
-                  variant="h5"
-                  color="secondary"
-                  className={classes.btnTitle}
-                >
-                  NOVO USUÁRIO
-                </Typography>
-              </Button>
             </div>
 
             <Modal

@@ -4,50 +4,68 @@ import {
   Container,
   IconButton,
 } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+import { Search, CloseRounded, WhatsApp } from "@material-ui/icons";
 import React from "react";
 import "./medications-style.css";
 import logoImg from "../../assets/main-logo.png";
 import searchIcn from "../../assets/search-icon.svg";
-import DrugsData from "../../components/drugs-data/DrugsData";
+import DrugsData from "../../components/DrugsData";
+import { useStyle } from "./style";
 
 const Medications = () => {
-  const [open, setOpen] = React.useState(false);
+  const classes = useStyle();
+  const [open, setOpen] = React.useState(true);
   const [fetchDrugs, setFetchDrugs] = React.useState("");
+  const [result, setResult] = React.useState(0);
 
   return (
     <div id="page-drugs">
+      <div className="whatsApp-icon">
+        <IconButton>
+          <WhatsApp className="whatsApp" />
+        </IconButton>
+      </div>
       <div className="menu-icon">
         <IconButton
           onClick={() => {
             setOpen(!open);
           }}
         >
-          <SearchIcon />
+          <Search />
         </IconButton>
       </div>
       <aside style={{ left: open ? 0 : "-35rem" }}>
         <div className="header">
-          <img
-            src={searchIcn}
-            alt="search icon"
-            className="close"
-            onClick={() => {
-              setOpen(!open);
-            }}
-          />
-          <Typography variant="body1" component="strong">
+          <div className="close">
+            <IconButton
+              className={classes.closeBtn}
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <CloseRounded />
+            </IconButton>
+          </div>
+          <img src={searchIcn} alt="search icon" />
+          <Typography
+            variant="body1"
+            component="strong"
+            className={classes.title}
+          >
             Então, como podemos te ajudar hoje, Joaquim ?
           </Typography>
           <TextField
+            className={classes.input}
             variant="outlined"
-            label="comprimidos, pomadas, produtos..."
+            label="Pesquisar..."
             color="secondary"
             onChange={(e) => setFetchDrugs(e.target.value)}
           />
-          <Typography variant="body1" component="strong" color="secondary">
-            ENCONTRAMOS 200 PRODUTOS PARA “comprimidos”
-          </Typography>
+          {fetchDrugs && (
+            <Typography variant="body1" component="strong" color="secondary">
+              ENCONTRAMOS {result} PRODUTOS PARA “{fetchDrugs}”
+            </Typography>
+          )}
         </div>
 
         <footer>
@@ -62,7 +80,7 @@ const Medications = () => {
       </aside>
 
       <Container maxWidth="md">
-        <DrugsData fetchResult={fetchDrugs} />
+        <DrugsData fetchResult={fetchDrugs} getResult={setResult} />
       </Container>
     </div>
   );

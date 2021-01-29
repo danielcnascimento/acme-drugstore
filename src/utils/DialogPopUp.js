@@ -6,7 +6,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export default function DraggableDialog(props) {
+//CAIXA DE DIALOGO USADA PARA AMBIENTE DE DESENVOLVIMENTO - FACILITA O ACESSO.
+
+export default function DialogPopUp(props) {
   const { open, setOpen } = props;
 
   const handleClickOpen = () => {
@@ -16,8 +18,6 @@ export default function DraggableDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const handleCopy = () => {};
 
   return (
     <div>
@@ -39,9 +39,6 @@ export default function DraggableDialog(props) {
         <DialogActions>
           <Button variant="outlined" onClick={handleClose} color="textPrimary">
             ok
-          </Button>
-          <Button variant="outlined" onClick={handleClose} color="textPrimary">
-            Copy
           </Button>
         </DialogActions>
       </Dialog>

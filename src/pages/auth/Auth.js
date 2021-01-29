@@ -5,18 +5,21 @@ import {
   Button,
   Typography,
   IconButton,
+  Snackbar,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { Info } from "@material-ui/icons";
 import logoImg from "../../assets/main-logo.png";
 import { useStyle } from "./style";
 import api from "../../services/api";
-import Dialog from "../../utils/Dialog";
+import Dialog from "../../utils/DialogPopUp";
 import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   const classes = useStyle();
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [openError, setOpenError] = useState(false);
   //states para os campos.
   const [email, setEmail] = useState("candidato@bluestorm.com.br");
   const [senha, setSenha] = useState("Bluestorm@123");
@@ -38,7 +41,7 @@ const Auth = () => {
         console.log(res.data.data);
         history.push("/drugs");
       })
-      .catch((err) => console.log(err.toJSON()));
+      .catch((err) => setOpenError(true));
   }
 
   return (
@@ -95,6 +98,20 @@ const Auth = () => {
           </Button>
         </div>
       </form>
+      <Snackbar
+        open={openError}
+        autoHideDuration={5000}
+        onClose={() => setOpenError(false)}
+      >
+        <Alert
+          elevation={6}
+          variant="filled"
+          onClose={() => setOpenError(false)}
+          severity="error"
+        >
+          wrong Email or Password
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
