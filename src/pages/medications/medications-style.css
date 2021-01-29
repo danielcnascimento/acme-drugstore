@@ -1,0 +1,94 @@
+#page-drugs {
+  width: 100vm;
+  height: 100vh;
+  position: relative;
+  display: flex;
+}
+
+.menu-icon {
+  position: absolute;
+  width: 3rem;
+  left: 0;
+  bottom: 0.5rem;
+  z-index: 1000;
+}
+
+aside {
+  width: 25rem;
+  height: 100vh;
+  background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
+  padding: 10px 0 0 25px;
+  position: fixed;
+  top: 0;
+  left: -35rem;
+  z-index: 1500;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  transition: 600ms;
+}
+
+aside.active {
+  left: 0;
+}
+
+@media (min-width: 1350px) {
+  aside {
+    width: 25rem;
+    height: 100vh;
+    background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
+    padding: 10px 0 0 25px;
+    position: initial;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #fff;
+  align-content: space-around;
+  width: 350px;
+  height: 350px;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  line-height: 24px;
+  justify-content: space-between;
+}
+
+footer .greetings {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.header img {
+  width: 70px;
+  height: auto;
+  align-self: center;
+}
+
+@media (max-width: 450px) {
+  .header img {
+    width: 50px;
+    height: auto;
+  }
+}
+
+footer img {
+  width: 100px;
+  height: auto;
+  padding-bottom: 10px;
+}
+.table-container {
+  width: auto;
+  display: flex;
+  position: relative;
+  margin: auto;
+}
