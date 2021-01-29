@@ -1,5 +1,5 @@
 # Projeto - Acme Drustore
-<p aligh="center"> Projeto que visa monstar uma simples drug store, Voltado para o público Senior </p>
+<p aligh="center"> Projeto que visa implementar um simples drug store, voltado para o público Senior, "que adoram usar laptops, mas não deslargam de seus smartfones".</p>
 
 
 # UI do projeto 
